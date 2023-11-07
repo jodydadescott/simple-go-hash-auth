@@ -17,7 +17,7 @@ type Client struct {
 }
 
 type Config struct {
-	Secret string
+	Secret string `json:"secret,omitempty" yaml:"secret,omitempty"`
 }
 
 func New(config *Config) *Client {

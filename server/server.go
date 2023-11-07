@@ -19,12 +19,12 @@ type Server struct {
 }
 
 type Config struct {
-	Secret               string
-	NonceLife            time.Duration
-	CacheRefreshInterval time.Duration
+	Secret               string        `json:"secret,omitempty" yaml:"secret,omitempty"`
+	NonceLife            time.Duration `json:"nonceLife,omitempty" yaml:"nonceLife,omitempty"`
+	CacheRefreshInterval time.Duration `json:"cacheRefreshInterval,omitempty" yaml:"cacheRefreshInterval,omitempty"`
 }
 
-func NewServer(config *Config) *Server {
+func New(config *Config) *Server {
 
 	if config == nil {
 		panic("config is nil")
@@ -78,8 +78,10 @@ func (t *Server) GetTokenFromRequest(request *AuthRequest) (*Token, error) {
 		return nil, fmt.Errorf(fmt.Sprintf("Request %s ServerNonce not found", request.ServerNonce))
 	}
 
-	if request.Hash != request.GetHashFromSecret(t.secret) {
-		return nil, fmt.Errorf("Request %s failed hash", request.ServerNonce)
+	expectedHash := request.GetHashFromSecret(t.secret)
+
+	if request.Hash != expectedHash {
+		return nil, fmt.Errorf("Request %s failed hash. Hash is %s and expected is %s", request.ServerNonce, request.Hash, expectedHash)
 	}
 
 	return t.tokenServer.NewToken(), nil

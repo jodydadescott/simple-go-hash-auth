@@ -26,9 +26,9 @@ type Server struct {
 }
 
 type Config struct {
-	TokenLife            time.Duration
-	TokenSize            int
-	CacheRefreshInterval time.Duration
+	TokenLife            time.Duration `json:"tokenLife,omitempty" yaml:"tokenLife,omitempty"`
+	TokenSize            int           `json:"tokenSize,omitempty" yaml:"tokenSize,omitempty"`
+	CacheRefreshInterval time.Duration `json:"cacheRefreshInterval,omitempty" yaml:"cacheRefreshInterval,omitempty"`
 }
 
 func New(config *Config) *Server {

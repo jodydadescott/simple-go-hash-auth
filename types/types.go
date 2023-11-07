@@ -2,6 +2,7 @@ package types
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 
 	"github.com/jinzhu/copier"
 )
@@ -37,8 +38,7 @@ func (t *AuthRequest) GetHashFromSecret(secret string) string {
 	s := t.ServerNonce + t.ClientNonce + secret
 	h := sha256.New()
 	h.Write([]byte(s))
-	bs := h.Sum(nil)
-	return string(bs)
+	return hex.EncodeToString(h.Sum(nil))
 }
 
 type Token struct {

@@ -9,7 +9,7 @@ import (
 
 func TestNonce1(t *testing.T) {
 
-	s := server.NewServer(&server.Config{
+	s := server.New(&server.Config{
 		Secret: "abc123",
 	})
 
@@ -40,7 +40,7 @@ func TestNonce1(t *testing.T) {
 
 func TestNonce2(t *testing.T) {
 
-	s := server.NewServer(&server.Config{
+	s := server.New(&server.Config{
 		Secret: "jk3434",
 	})
 
@@ -71,7 +71,7 @@ func TestNonce2(t *testing.T) {
 
 func TestNonce3(t *testing.T) {
 
-	s := server.NewServer(&server.Config{
+	s := server.New(&server.Config{
 		Secret: "abc123",
 	})
 
